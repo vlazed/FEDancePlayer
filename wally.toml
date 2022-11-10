@@ -1,0 +1,10 @@
+[package]
+name = "jacob/fe-dance-animations"
+version = "0.1.0"
+registry = "https://github.com/UpliftGames/wally-index"
+realm = "shared"
+
+[dependencies]
+promise = "evaera/promise@4.0.0"
+TableUtil = "sleitnick/table-util@1.1.5"
+Signal = "sleitnick/signal@1.2.1"
