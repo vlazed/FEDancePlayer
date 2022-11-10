@@ -9,7 +9,7 @@ local feDancePlayer = script:FindFirstAncestor("FE-Dance-Animations")
 local FastDraggable = require(feDancePlayer.FastDraggable)
 local Sidebar = require(feDancePlayer.Components.Sidebar)
 
-local gui = feDancePlayer.Assets.ScreenGui:Clone()
+local gui = feDancePlayer.Assets.ScreenGui
 
 
 function App:GetGUI()
