@@ -6,7 +6,7 @@ local Rostruct = loadstring(game:HttpGetAsync(
 
 print("Fetching package")
     -- Download the latest release to local files
-return Rostruct.fetchLatest("vlazed", "FEDancePlayer")
+return Rostruct.fetchLatest("lavzed", "FEDancePlayer")
     -- Then, build and start all scripts
     :andThen(function(package)
         print("Building package")
