@@ -4,7 +4,8 @@ return {
 		Priority = Enum.AnimationPriority.Idle
 	},
 	Keyframes = {
-		[0] = {
+		{
+			["Time"] = 0,
 			["HumanoidRootPart"] = {
 				["Torso"] = {
 					CFrame = CFrame.new(0, -0.2, 0) * CFrame.Angles(math.rad(15.011), 0, 0),
@@ -26,7 +27,8 @@ return {
 				},
 			},
 		},
-		[0.017] = {
+		{
+			["Time"] = 0.017,
 			["HumanoidRootPart"] = {
 				["Torso"] = {
 					CFrame = CFrame.new(0, -0.174, 0) * CFrame.Angles(math.rad(13.063), 0, 0),
@@ -48,7 +50,8 @@ return {
 				},
 			},
 		},
-		[0.033] = {
+		{
+			["Time"] = 0.033,
 			["HumanoidRootPart"] = {
 				["Torso"] = {
 					CFrame = CFrame.new(0, -0.15, 0) * CFrame.Angles(math.rad(11.287), 0, 0),
@@ -70,7 +73,8 @@ return {
 				},
 			},
 		},
-		[0.05] = {
+		{
+			["Time"] = 0.05,
 			["HumanoidRootPart"] = {
 				["Torso"] = {
 					CFrame = CFrame.new(0, -0.128, 0) * CFrame.Angles(math.rad(9.626), 0, 0),
@@ -92,7 +96,8 @@ return {
 				},
 			},
 		},
-		[0.067] = {
+		{
+			["Time"] = 0.067,
 			["HumanoidRootPart"] = {
 				["Torso"] = {
 					CFrame = CFrame.new(0, -0.108, 0) * CFrame.Angles(math.rad(8.079), 0, 0),
@@ -114,7 +119,8 @@ return {
 				},
 			},
 		},
-		[0.083] = {
+		{
+			["Time"] = 0.083,
 			["HumanoidRootPart"] = {
 				["Torso"] = {
 					CFrame = CFrame.new(0, -0.089, 0) * CFrame.Angles(math.rad(6.646), 0, 0),
@@ -136,7 +142,8 @@ return {
 				},
 			},
 		},
-		[0.1] = {
+		{
+			["Time"] = 0.1,
 			["HumanoidRootPart"] = {
 				["Torso"] = {
 					CFrame = CFrame.new(0, -0.072, 0) * CFrame.Angles(math.rad(5.386), 0, 0),
@@ -158,7 +165,8 @@ return {
 				},
 			},
 		},
-		[0.117] = {
+		{
+			["Time"] = 0.117,
 			["HumanoidRootPart"] = {
 				["Torso"] = {
 					CFrame = CFrame.new(0, -0.057, 0) * CFrame.Angles(math.rad(4.24), 0, 0),
@@ -180,7 +188,8 @@ return {
 				},
 			},
 		},
-		[0.133] = {
+		{
+			["Time"] = 0.133,
 			["HumanoidRootPart"] = {
 				["Torso"] = {
 					CFrame = CFrame.new(0, -0.044, 0) * CFrame.Angles(math.rad(3.266), 0, 0),
@@ -202,7 +211,8 @@ return {
 				},
 			},
 		},
-		[0.15] = {
+		{
+			["Time"] = 0.15,
 			["HumanoidRootPart"] = {
 				["Torso"] = {
 					CFrame = CFrame.new(0, -0.032, 0) * CFrame.Angles(math.rad(2.406), 0, 0),
@@ -224,7 +234,8 @@ return {
 				},
 			},
 		},
-		[0.167] = {
+		{
+			["Time"] = 0.167,
 			["HumanoidRootPart"] = {
 				["Torso"] = {
 					CFrame = CFrame.new(0, -0.022, 0) * CFrame.Angles(math.rad(1.662), 0, 0),
@@ -246,7 +257,8 @@ return {
 				},
 			},
 		},
-		[0.183] = {
+		{
+			["Time"] = 0.183,
 			["HumanoidRootPart"] = {
 				["Torso"] = {
 					CFrame = CFrame.new(0, -0.014, 0) * CFrame.Angles(math.rad(1.089), 0, 0),
@@ -268,7 +280,8 @@ return {
 				},
 			},
 		},
-		[0.2] = {
+		{
+			["Time"] = 0.2,
 			["HumanoidRootPart"] = {
 				["Torso"] = {
 					CFrame = CFrame.new(0, -0.008, 0) * CFrame.Angles(math.rad(0.573), 0, 0),
@@ -290,7 +303,8 @@ return {
 				},
 			},
 		},
-		[0.217] = {
+		{
+			["Time"] = 0.217,
 			["HumanoidRootPart"] = {
 				["Torso"] = {
 					CFrame = CFrame.new(0, -0.004, 0) * CFrame.Angles(math.rad(0.286), 0, 0),
@@ -312,7 +326,8 @@ return {
 				},
 			},
 		},
-		[0.233] = {
+		{
+			["Time"] = 0.233,
 			["HumanoidRootPart"] = {
 				["Torso"] = {
 					CFrame = CFrame.new(0, -0.001, 0) * CFrame.Angles(math.rad(0.057), 0, 0),
@@ -334,7 +349,8 @@ return {
 				},
 			},
 		},
-		[0.25] = {
+		{
+			["Time"] = 0.25,
 			["HumanoidRootPart"] = {
 				["Torso"] = {
 					["Left Leg"] = {
@@ -355,7 +371,8 @@ return {
 				},
 			},
 		},
-		[0.267] = {
+		{
+			["Time"] = 0.267,
 			["HumanoidRootPart"] = {
 				["Torso"] = {
 					["Left Leg"] = {
@@ -376,7 +393,8 @@ return {
 				},
 			},
 		},
-		[0.283] = {
+		{
+			["Time"] = 0.283,
 			["HumanoidRootPart"] = {
 				["Torso"] = {
 					["Left Leg"] = {
@@ -397,7 +415,8 @@ return {
 				},
 			},
 		},
-		[0.3] = {
+		{
+			["Time"] = 0.3,
 			["HumanoidRootPart"] = {
 				["Torso"] = {
 					["Left Leg"] = {
@@ -418,7 +437,8 @@ return {
 				},
 			},
 		},
-		[0.317] = {
+		{
+			["Time"] = 0.317,
 			["HumanoidRootPart"] = {
 				["Torso"] = {
 					["Left Leg"] = {
@@ -439,7 +459,8 @@ return {
 				},
 			},
 		},
-		[0.333] = {
+		{
+			["Time"] = 0.333,
 			["HumanoidRootPart"] = {
 				["Torso"] = {
 					["Left Leg"] = {
@@ -460,7 +481,8 @@ return {
 				},
 			},
 		},
-		[0.35] = {
+		{
+			["Time"] = 0.35,
 			["HumanoidRootPart"] = {
 				["Torso"] = {
 					["Left Leg"] = {
@@ -481,7 +503,8 @@ return {
 				},
 			},
 		},
-		[0.367] = {
+		{
+			["Time"] = 0.367,
 			["HumanoidRootPart"] = {
 				["Torso"] = {
 					["Left Leg"] = {
@@ -502,7 +525,8 @@ return {
 				},
 			},
 		},
-		[0.383] = {
+		{
+			["Time"] = 0.383,
 			["HumanoidRootPart"] = {
 				["Torso"] = {
 					["Left Leg"] = {
@@ -523,7 +547,8 @@ return {
 				},
 			},
 		},
-		[0.4] = {
+		{
+			["Time"] = 0.4,
 			["HumanoidRootPart"] = {
 				["Torso"] = {
 					["Left Leg"] = {
@@ -544,7 +569,8 @@ return {
 				},
 			},
 		},
-		[0.417] = {
+		{
+			["Time"] = 0.417,
 			["HumanoidRootPart"] = {
 				["Torso"] = {
 					["Left Leg"] = {
@@ -565,7 +591,8 @@ return {
 				},
 			},
 		},
-		[0.433] = {
+		{
+			["Time"] = 0.433,
 			["HumanoidRootPart"] = {
 				["Torso"] = {
 					["Left Leg"] = {
@@ -586,7 +613,8 @@ return {
 				},
 			},
 		},
-		[0.45] = {
+		{
+			["Time"] = 0.45,
 			["HumanoidRootPart"] = {
 				["Torso"] = {
 					["Left Leg"] = {
@@ -607,7 +635,8 @@ return {
 				},
 			},
 		},
-		[0.467] = {
+		{
+			["Time"] = 0.467,
 			["HumanoidRootPart"] = {
 				["Torso"] = {
 					["Left Leg"] = {
@@ -628,7 +657,8 @@ return {
 				},
 			},
 		},
-		[0.483] = {
+		{
+			["Time"] = 0.483,
 			["HumanoidRootPart"] = {
 				["Torso"] = {
 					["Left Leg"] = {
@@ -649,7 +679,8 @@ return {
 				},
 			},
 		},
-		[0.5] = {
+		{
+			["Time"] = 0.5,
 			["HumanoidRootPart"] = {
 				["Torso"] = {
 					["Left Leg"] = {

@@ -1,8 +1,8 @@
 local PlayerAnimations = {}
 
-PlayerAnimations.idleTable = script.Parent.Animations.Idle
-PlayerAnimations.moveTable = script.Parent.Animations.Move
-PlayerAnimations.jumpTable = script.Parent.Animations.Jump
-PlayerAnimations.fallTable = script.Parent.Animations.Fall
+PlayerAnimations.idleTable = require(script.Parent.Animations.Idle)
+PlayerAnimations.moveTable = require(script.Parent.Animations.Move)
+PlayerAnimations.jumpTable = require(script.Parent.Animations.Jump)
+PlayerAnimations.fallTable = require(script.Parent.Animations.Fall)
 
 return PlayerAnimations

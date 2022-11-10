@@ -1,5 +1,6 @@
 local feDancePlayer = script:FindFirstAncestor("FE-Dance-Animations")
 local playerAnimations = require(script.Parent.PlayerAnimations)
+print(playerAnimations)
 
 local Thread = require(feDancePlayer.Util.Thread)
 local RunService = game:GetService("RunService")
@@ -330,27 +331,27 @@ local function _pose(character, keyframe, alpha)
 	if kf then
 		if kf.CFrame then
 			animateTorso(kf.CFrame, alpha)
-			print("Shit")
+			--print("Shit")
 		end
 		if kf["Right Leg"] then
 			animateLimb(character["Right Leg"], _getNexoCharacter().Torso["Right Hip"], kf["Right Leg"].CFrame, alpha)
-			print("Shit")
+			--print("Shit")
 		end
 		if kf["Left Leg"] then
 			animateLimb(character["Left Leg"], _getNexoCharacter().Torso["Left Hip"], kf["Left Leg"].CFrame, alpha)
-			print("Shit")
+			--print("Shit")
 		end
 		if kf["Right Arm"] then
 			animateLimb(character["Right Arm"], _getNexoCharacter().Torso["Right Shoulder"], kf["Right Arm"].CFrame, alpha)
-			print("Shit")
+			--print("Shit")
 		end
 		if kf["Left Arm"] then
 			animateLimb(character["Left Arm"], _getNexoCharacter().Torso["Left Shoulder"], kf["Left Arm"].CFrame, alpha)
-			print("Shit")
+			--print("Shit")
 		end
 		if kf["Head"] then
 			animateLimb(character["Head"], _getNexoCharacter().Torso["Neck"], kf["Head"].CFrame, alpha)
-			print("Shit")
+			--print("Shit")
 		end
 	end
 end
@@ -370,12 +371,29 @@ end
 
 function PlayerController:Update(animTable)
     local char = _getCharacter()
+	local nexoChar = _getNexoCharacter()
 
 	if not PlayerController.Dancing then
-		if char.Humanoid.MoveDirection.Magnitude > 0 then
-			_animate(char, playerAnimations.moveTable, PlayerController.i)
+		if char.Humanoid.Jump then
+			print("Jump")
+			animTable = playerAnimations.jumpTable.Keyframes
+			PlayerController.i = (PlayerController.i - 1 + (1 % #animTable) + #animTable) % #animTable + 1
+			_animate(char, animTable, PlayerController.i)
+		elseif nexoChar.HumanoidRootPart.AssemblyLinearVelocity.Y < -20 then
+			print("Fall")
+			animTable = playerAnimations.fallTable.Keyframes
+			PlayerController.i = (PlayerController.i - 1 + (1 % #animTable) + #animTable) % #animTable + 1
+			_animate(char, animTable, PlayerController.i)
+		elseif char.Humanoid.MoveDirection.Magnitude > 0 then
+			print("Move")
+			animTable = playerAnimations.moveTable.Keyframes
+			PlayerController.i = (PlayerController.i - 1 + (1 % #animTable) + #animTable) % #animTable + 1
+			_animate(char, animTable, PlayerController.i)
 		else
-			_animate(char, playerAnimations.idleTable, PlayerController.i)
+			print("Idle")
+			animTable = playerAnimations.idleTable.Keyframes
+			PlayerController.i = (PlayerController.i - 1 + (1 % #animTable) + #animTable) % #animTable + 1
+			_animate(char, animTable, PlayerController.i)
 		end
 	end
 
