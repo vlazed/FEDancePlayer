@@ -398,20 +398,21 @@ function PlayerController:Update(animTable)
 	end
 
     if PlayerController.Dancing and #animTable > 0 then
+		print("Dancing")
         _animate(char, animTable, PlayerController.i)
         PlayerController.i = (PlayerController.i - 1 + (1 % #animTable) + #animTable) % #animTable + 1
     end
 end    
 
 
-function PlayerController:Init(animTable, canClickFling)
+function PlayerController:Init(canClickFling)
     animTable = animTable or {}
     canClickFling = canClickFling or false
 
 	print("Loading Player")
     _NexoLoad(canClickFling)
 
-    Thread.DelayRepeat(0.01, self.Update, animTable)
+    Thread.DelayRepeat(0.01, self.Update, PlayerController.AnimationTable)
 end
 
 function PlayerController:Respawn()
