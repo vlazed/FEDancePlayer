@@ -13,5 +13,5 @@ if not RunService:IsStudio() then
 end
 
 
---PlayerController:Init()
-App:Init()
+PlayerController:Init()
+--App:Init()
