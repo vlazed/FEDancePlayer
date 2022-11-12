@@ -2,7 +2,7 @@
 
 
 ## Usage
-Download the FEDancePlayer.lua script and the corresponding rbxm binary from Releases. Place the binary in your executor's workspace (do not place it inside any directories inside the workspace). Run FEDancePlayer.lua to run the script.
+Download the FEDancePlayer.lua script and the corresponding rbxm binary from Releases. Place the binary in your executor's workspace (do not place it inside any directories inside the workspace). Run FEDancePlayer.lua to run the script. Note that you only need to download the lua script once. The updates only happen on the binary
 
 ## Keybinds
 - "-": Respawn
