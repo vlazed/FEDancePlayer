@@ -174,7 +174,7 @@ local function _NexoLoad(canClickFling)
 
     local z=Instance.new("Part")
 	z.CanCollide=false 
-	z.Transparency=0 
+	z.Transparency=1
     z.Parent = g
 
     d(c,x.RenderStepped:Connect(function()
