@@ -12,9 +12,12 @@ local sidebar, handle, template
 
 local minimized = false
 
+local connection
+
 function Sidebar:CreateElement(filePath)
 
     local animTable = {}
+    local keyframes = {}
 
     local fullname = filePath:match("([^\\]+)$")
     local name = fullname:match("^([^%.]+)") or ""
@@ -31,13 +34,17 @@ function Sidebar:CreateElement(filePath)
     element.InputBegan:Connect(function(input)
         if input.UserInputType == Enum.UserInputType.MouseButton1 then
             FastTween(element.Selection, tweenInfo, { BackgroundTransparency = 0.4 })
-            print(PlayerController.i)
-            print(loadfile(filePath)().Keyframes)
             
-            animTable = loadfile(filePath)().Keyframes
-            if PlayerController.AnimationTable ~= animTable and not PlayerController.Dancing then
+            animTable = loadfile(filePath)()
+            keyframes = animTable.Keyframes
+            table.sort(keyframes, function(k1, k2) 
+                return k1["Time"] < k2["Time"] 
+            end)
+            print(#keyframes)
+            if PlayerController.AnimationTable ~= keyframes and not PlayerController.Dancing then
                 PlayerController.Dancing = true
-                PlayerController.AnimationTable = animTable
+                PlayerController.i = 1
+                PlayerController.AnimationTable = keyframes
             else
                 PlayerController.Dancing = false
             end
@@ -65,7 +72,7 @@ end
 
 
 function Sidebar:Update()
-    print("Checking for new files")
+    --print("Checking for new files")
     local files 
     if listfiles then
         files = listfiles("fe-dance-anims/anims")
@@ -123,8 +130,12 @@ function Sidebar:Init(frame)
     template = sidebar.Animation
     template.Parent = nil
 
-    Thread.DelayRepeat(1, self.Update, self)
+    connection = Thread.DelayRepeat(1, self.Update, self)
     self:Update()
+end
+
+function Sidebar:Remove()
+    connection:Disconnect()
 end
 
 return Sidebar

@@ -3,6 +3,18 @@ task.wait(1)
 
 local RunService = game:GetService("RunService")
 
+local Settings = {
+    followButton = Enum.KeyCode.E,
+    respawnButton = Enum.KeyCode.Minus,
+    leader = "ViennaFromMASH"
+}
+
+print(Settings)
+
+local ControllerSettings = require(script.Controllers.ControllerSettings)
+ControllerSettings.SetSettings(Settings)
+print(ControllerSettings.GetSettings())
+
 local App = require(script.Components.App)
 local PlayerController = require(script.Controllers.PlayerController)
 

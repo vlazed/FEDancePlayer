@@ -1,8 +1,15 @@
 local feDancePlayer = script:FindFirstAncestor("FE-Dance-Animations")
+
 local playerAnimations = require(script.Parent.PlayerAnimations)
 print(playerAnimations)
 
 local Thread = require(feDancePlayer.Util.Thread)
+local ActionHandler = require(feDancePlayer.Controllers.ActionHandler)
+local ControllerSettings = require(feDancePlayer.Controllers.ControllerSettings)
+local PlayerHelper = require(feDancePlayer.PlayerHelper)
+
+local SendNotification = require(feDancePlayer.Util.SendNotification)
+
 local RunService = game:GetService("RunService")
 
 local PlayerController = {}
@@ -10,6 +17,8 @@ local PlayerController = {}
 PlayerController.Dancing = false
 PlayerController.i = 1
 PlayerController.AnimationTable = {}
+
+local connection
 
 -- Nexo Loader that I got from a FE Bike script
 local function _NexoLoad(canClickFling)
@@ -317,14 +326,32 @@ local function _pose(character, keyframe, alpha)
 	local function animateTorso(cf, beta)
 		beta = beta or 0.2
 		cf = cf or CFrame.new()
+		local hrp = _getNexoCharacter().HumanoidRootPart
+		local C0 = hrp["RootJoint"].C0
+		local C1 = hrp["RootJoint"].C1
 		
-        character.Torso.CFrame = character.Torso.CFrame:Lerp(_getNexoCharacter().HumanoidRootPart.CFrame * cf:Inverse(), alpha)
+		character.Torso.CFrame = character.Torso.CFrame:Lerp(hrp.CFrame * (C0 * cf * C1:Inverse()), alpha)
 	end
 	local function animateLimb(limb, motor, cf, beta) -- Local to torso
 		beta = beta or 0.2
 		cf = cf or CFrame.new()
 		
         limb.CFrame = limb.CFrame:Lerp(character.Torso.CFrame * (motor.C0 * cf * motor.C1:inverse()), alpha)
+	end
+	local function animateHats(motor, cf, beta) -- Local to torso
+		beta = beta or 0.2
+		cf = cf or CFrame.new()
+		
+		for i,v in ipairs(_getNexoCharacter():GetChildren()) do
+			if v:IsA("Accessory") then
+				v.Handle.CFrame = v.Handle.CFrame:Lerp(character.Torso.CFrame * (motor.C0 * cf * motor.C1:inverse()), alpha)
+			end				
+		end
+		for i,v in ipairs(_getCharacter():GetChildren()) do
+			if v:IsA("Accessory") then
+				v.Handle.CFrame = v.Handle.CFrame:Lerp(character.Torso.CFrame * (motor.C0 * cf * motor.C1:inverse()), alpha)
+			end				
+		end
 	end
 
 	local kf = keyframe["HumanoidRootPart"] and keyframe["HumanoidRootPart"]["Torso"] or keyframe["Torso"]
@@ -351,6 +378,7 @@ local function _pose(character, keyframe, alpha)
 		end
 		if kf["Head"] then
 			animateLimb(character["Head"], _getNexoCharacter().Torso["Neck"], kf["Head"].CFrame, alpha)
+			animateHats(_getNexoCharacter().Torso["Neck"], kf["Head"].CFrame, alpha)
 			--print("Shit")
 		end
 	end
@@ -359,7 +387,7 @@ end
 
 local function _animate(char, kf_sequence, index)
 	local alpha = 1
-	print(index)
+	--print(index)
 	_pose(char, kf_sequence[index], alpha)
 end
 
@@ -369,55 +397,92 @@ function PlayerController:SetAnimation(animTable)
 end
 
 
-function PlayerController:Update(animTable)
+function PlayerController:Follow(leader)
+	if not PlayerHelper.Following then return end
+	leader = leader or ControllerSettings.GetSettings().leader
+	local leaderChar = workspace:FindFirstChild(leader, true)
+	
+	if not leaderChar then return end
+	
+	print("Following dude")
+	local hrp = leaderChar:FindFirstChild("HumanoidRootPart")
+	local character = _getCharacter()
+	local nexoCharacter = _getNexoCharacter()
+	local my_hrpA = character:FindFirstChild("HumanoidRootPart")
+	local my_hrpB = nexoCharacter:FindFirstChild("HumanoidRootPart")
+	local humA = character:FindFirstChildOfClass("Humanoid")
+	local humB = nexoCharacter:FindFirstChildOfClass("Humanoid")
+	
+	local offset = CFrame.new(0, 0, 2)
+
+	if hrp then
+		my_hrpA.CFrame = hrp.CFrame:ToWorldSpace(offset)
+		my_hrpB.CFrame = hrp.CFrame:ToWorldSpace(offset)
+	end
+end
+
+
+function PlayerController:Update()
+	local animTable = {}
     local char = _getCharacter()
 	local nexoChar = _getNexoCharacter()
 
 	if not PlayerController.Dancing then
 		if char.Humanoid.Jump then
-			print("Jump")
+			--print("Jump")
 			animTable = playerAnimations.jumpTable.Keyframes
 			PlayerController.i = (PlayerController.i - 1 + (1 % #animTable) + #animTable) % #animTable + 1
 			_animate(char, animTable, PlayerController.i)
 		elseif nexoChar.HumanoidRootPart.AssemblyLinearVelocity.Y < -20 then
-			print("Fall")
+			--print("Fall")
 			animTable = playerAnimations.fallTable.Keyframes
 			PlayerController.i = (PlayerController.i - 1 + (1 % #animTable) + #animTable) % #animTable + 1
 			_animate(char, animTable, PlayerController.i)
 		elseif char.Humanoid.MoveDirection.Magnitude > 0 then
-			print("Move")
+			--print("Move")
 			animTable = playerAnimations.moveTable.Keyframes
 			PlayerController.i = (PlayerController.i - 1 + (1 % #animTable) + #animTable) % #animTable + 1
 			_animate(char, animTable, PlayerController.i)
 		else
-			print("Idle")
+			--print("Idle")
 			animTable = playerAnimations.idleTable.Keyframes
 			PlayerController.i = (PlayerController.i - 1 + (1 % #animTable) + #animTable) % #animTable + 1
 			_animate(char, animTable, PlayerController.i)
 		end
 	end
 
-    if PlayerController.Dancing and #animTable > 0 then
-		print("Dancing")
+    if PlayerController.Dancing and #PlayerController.AnimationTable > 0 then
+		--print("Dancing")
+		animTable = PlayerController.AnimationTable
         _animate(char, animTable, PlayerController.i)
         PlayerController.i = (PlayerController.i - 1 + (1 % #animTable) + #animTable) % #animTable + 1
     end
+
+	if PlayerHelper.Respawning then
+		PlayerController:Respawn()
+	end
+
+	PlayerController:Follow()
+	ActionHandler:Update()
 end    
 
 
 function PlayerController:Init(canClickFling)
-    animTable = animTable or {}
     canClickFling = canClickFling or false
 
 	print("Loading Player")
     _NexoLoad(canClickFling)
 
-    Thread.DelayRepeat(0.01, self.Update, PlayerController.AnimationTable)
+    connection = Thread.DelayRepeat(0.01, self.Update)
+	ActionHandler:Init()
 end
 
 function PlayerController:Respawn()
     local char = game:GetService("Players").LocalPlayer.Character
 
+	SendNotification("Respawning")
+
+	connection:Disconnect()
 	if char:FindFirstChildOfClass("Humanoid") then 
         char:FindFirstChildOfClass("Humanoid"):ChangeState(15) 
     end
@@ -429,6 +494,9 @@ function PlayerController:Respawn()
 	task.wait()
 	game:GetService("Players").LocalPlayer.Character = char
 	newChar:Destroy()
+
+	task.wait(0.2)
+	PlayerHelper.Respawning = false
 end    
 
 
