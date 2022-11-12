@@ -85,6 +85,11 @@ function ActionHandler.Listen(an, is, io)
 end
 
 
+function ActionHandler:Stop()
+    ContextActionService:UnbindAction("Listen")
+end
+
+
 function ActionHandler:Init()
     local Settings = ControllerSettings.GetSettings()
     prevSettings = Settings

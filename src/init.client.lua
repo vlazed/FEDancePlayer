@@ -6,7 +6,9 @@ local RunService = game:GetService("RunService")
 local Settings = {
     followButton = Enum.KeyCode.E,
     respawnButton = Enum.KeyCode.Minus,
-    leader = "ViennaFromMASH"
+    leader = "ViennaFromMASH",
+
+    DT = 0.01,
 }
 
 print(Settings)
