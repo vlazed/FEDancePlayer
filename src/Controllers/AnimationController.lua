@@ -76,15 +76,17 @@ end
 
 
 local function _animate(char, keyframeTable)
+
     local current_i = (i - 1 + (0 % #keyframeTable) + #keyframeTable) % #keyframeTable + 1
     local next_i = (i - 1 + (1 % #keyframeTable) + #keyframeTable) % #keyframeTable + 1
 
     timediff = keyframeTable[next_i]["Time"] - keyframeTable[current_i]["Time"]
     
-    time += 0.01
+    time += 1/30
 
     if time > timediff then
         i = next_i
+        time = 0
     elseif timediff < 0 then
         i = 1
         time = 0

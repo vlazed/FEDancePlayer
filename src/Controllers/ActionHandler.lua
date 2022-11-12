@@ -80,6 +80,14 @@ function ActionHandler.Listen(an, is, io)
         elseif io.KeyCode == prevSettings.respawnButton then
             print("Respawning")
             PlayerHelper.Respawning = true
+        elseif io.KeyCode == prevSettings.sprintButton then
+            print("Sprinting")
+            PlayerHelper.Sprinting = true
+        end
+    elseif is == Enum.UserInputState.End then
+        if io.KeyCode == prevSettings.sprintButton then
+            print("Not sprinting")
+            PlayerHelper.Sprinting = false
         end
     end
 end
@@ -94,7 +102,7 @@ function ActionHandler:Init()
     local Settings = ControllerSettings.GetSettings()
     prevSettings = Settings
 
-    ContextActionService:BindAction("Listen", ActionHandler.Listen, false, Settings.followButton, Settings.respawnButton)
+    ContextActionService:BindAction("Listen", ActionHandler.Listen, false, Settings.followButton, Settings.respawnButton, Settings.sprintButton)
 end
 
 return ActionHandler

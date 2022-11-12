@@ -10,6 +10,7 @@ local ControllerSettings = require(feDancePlayer.Controllers.ControllerSettings)
 local PlayerHelper = require(feDancePlayer.PlayerHelper)
 
 local SendNotification = require(feDancePlayer.Util.SendNotification)
+local FastTween = require(feDancePlayer.FastTween)
 
 local RunService = game:GetService("RunService")
 
@@ -346,11 +347,37 @@ end
 
 
 function PlayerController:Sprint()
+	local Settings = ControllerSettings:GetSettings()
+	print("Sprinting")
+	local char = PlayerHelper.getCharacter()
+	local nexoChar = PlayerHelper.getNexoCharacter()
+	local humA = char:FindFirstChildOfClass("Humanoid")
+	local humB = nexoChar:FindFirstChildOfClass("Humanoid")
+
+	local tweenInfo = {0.5, Enum.EasingStyle.Linear, Enum.EasingDirection.In}
+
+	FastTween(humA, tweenInfo, {WalkSpeed = Settings.sprintSpeed})
+	FastTween(humB, tweenInfo, {WalkSpeed = Settings.sprintSpeed})
+
+	humA.JumpPower = Settings.sprintJump
+	humB.JumpPower = Settings.sprintJump
+	AnimationController.Animate(playerAnimations.sprintTable.Keyframes)
 end
 
 
 function PlayerController:Walk()
+	local Settings = ControllerSettings:GetSettings()
 	print("Walk")
+	local tweenInfo = {0.25, Enum.EasingStyle.Linear, Enum.EasingDirection.In}
+	local char = PlayerHelper.getCharacter()
+	local nexoChar = PlayerHelper.getNexoCharacter()
+	local humA = char:FindFirstChildOfClass("Humanoid")
+	local humB = nexoChar:FindFirstChildOfClass("Humanoid")
+
+	humA.JumpPower = Settings.jumpPower
+	humB.JumpPower = Settings.jumpPower
+	FastTween(humA, tweenInfo, {WalkSpeed = Settings.walkSpeed})
+	FastTween(humB, tweenInfo, {WalkSpeed = Settings.walkSpeed})
 	AnimationController.Animate(playerAnimations.moveTable.Keyframes)
 end
 
