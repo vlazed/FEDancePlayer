@@ -361,7 +361,7 @@ function PlayerController:Sprint()
 
 	humA.JumpPower = Settings.sprintJump
 	humB.JumpPower = Settings.sprintJump
-	AnimationController.Animate(playerAnimations.sprintTable.Keyframes)
+	AnimationController.Animate(playerAnimations.sprintTable.Keyframes, true)
 end
 
 
@@ -378,25 +378,25 @@ function PlayerController:Walk()
 	humB.JumpPower = Settings.jumpPower
 	FastTween(humA, tweenInfo, {WalkSpeed = Settings.walkSpeed})
 	FastTween(humB, tweenInfo, {WalkSpeed = Settings.walkSpeed})
-	AnimationController.Animate(playerAnimations.moveTable.Keyframes)
+	AnimationController.Animate(playerAnimations.moveTable.Keyframes, true)
 end
 
 
 function PlayerController:Fall()
 	print("Fall")
-	AnimationController.Animate(playerAnimations.fallTable.Keyframes)
+	AnimationController.Animate(playerAnimations.fallTable.Keyframes, false)
 end
 
 
 function PlayerController:Jump()
 	print("Jump")
-	AnimationController.Animate(playerAnimations.jumpTable.Keyframes)
+	AnimationController.Animate(playerAnimations.jumpTable.Keyframes, true)
 end
 
 
 function PlayerController:Idle()
 	print("Idle")
-	AnimationController.Animate(playerAnimations.idleTable.Keyframes)
+	AnimationController.Animate(playerAnimations.idleTable.Keyframes, true)
 end
 
 
@@ -409,7 +409,7 @@ function PlayerController:Update()
 	if not PlayerController.Dancing then
 		if char.Humanoid.Jump then
 			PlayerController:Jump()
-		elseif nexoChar.HumanoidRootPart.AssemblyLinearVelocity.Y < -20 then
+		elseif nexoChar.HumanoidRootPart.AssemblyLinearVelocity.Y < -10 then
 			PlayerController:Fall()
 		elseif PlayerHelper.Sprinting then
 			PlayerController:Sprint()
