@@ -16,11 +16,9 @@ local Settings = {
     sprintJump = 300,
 }
 
-print(Settings)
 
 local ControllerSettings = require(script.Controllers.ControllerSettings)
 ControllerSettings.SetSettings(Settings)
-print(ControllerSettings.GetSettings())
 
 local App = require(script.Components.App)
 local PlayerController = require(script.Controllers.PlayerController)
